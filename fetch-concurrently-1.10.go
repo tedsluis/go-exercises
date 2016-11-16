@@ -9,6 +9,7 @@ import (
 	"os"
 	"time"
 	"strings"
+	"sort"
 )
 
 func main() {
@@ -21,15 +22,18 @@ func main() {
 			startcount++;
 		}
 	}
+	var sortindex [] string
 	lines := make(map[string]string)
 	for count := 1; count < startcount; count++ {
 		result := strings.Split(<-ch,";") // receive from channel ch
 		index := fmt.Sprintf("%-20s %4s %4s", result[3], result[1], result[0])
+		sortindex = append(sortindex,index)
 		fmt.Println(index)
 		lines[index]=fmt.Sprintf("%-20s order=%4s overall=%4s sec=%4s nbytes=%7s", result[3],result[4],result[0],result[1],result[2])
 	}
-	for index, line := range lines {
-		fmt.Println(">"+index,">"+line)
+	sort.Strings(sortindex)
+	for _,index := range sortindex {
+		fmt.Println(">"+index,">"+lines[index])
 	}
 	fmt.Printf("%.2fs elapsed\n", time.Since(start).Seconds())
 }
