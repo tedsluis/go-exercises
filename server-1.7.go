@@ -6,10 +6,13 @@ import (
 	"log"
 	"net/http"
 	"sync"
+	"time"
 )
 
 var mu sync.Mutex
 var count int
+var start = time.Now()
+var last  = time.Now()
 
 func main() {
 	http.HandleFunc("/", handler)
@@ -21,6 +24,8 @@ func main() {
 func handler(w http.ResponseWriter, r *http.Request) {
 	mu.Lock()
 	count++
+	last = start
+	start = time.Now()
 	mu.Unlock()
 	fmt.Fprintf(w, "URL.Path = %q\n", r.URL.Path)
 }
@@ -28,6 +33,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 // counter echoes the number of calls so far.
 func counter(w http.ResponseWriter, r *http.Request) {
 	mu.Lock()
-	fmt.Fprintf(w, "Count %d\n", count)
+	fmt.Fprintf(w, "Count=%d\nt1=%v\nt2=%v", count, time.Since(last).Seconds(), time.Since(start).Seconds())
 	mu.Unlock()
 }
