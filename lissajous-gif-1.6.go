@@ -31,7 +31,6 @@ func main() {
 func lissajous(out io.Writer) {
 	const (
 		cycles = 1 // number of complete x oscillator
-		revolutions
 		res     = 0.0001 // angular resolution
 		size    = 300    // image canvas covers [-size..+size]
 		nframes = 512    // number of animation frames
