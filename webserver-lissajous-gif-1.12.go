@@ -9,6 +9,11 @@ import (
 	"math"
 	"math/rand"
 	"net/http"
+	"sync"
+	"strings"
+	"regexp"
+	"strconv"
+	"fmt"
 )
 
 var Red     = color.RGBA{0xff, 0x00, 0x00, 0xff}
@@ -25,18 +30,34 @@ const (
 	whiteIndex = 0 // first color in palette
 	blackIndex = 1 // next color in palette
 )
+var mu sync.Mutex
 
 func main() {
 	handler := func(w http.ResponseWriter, r *http.Request) {
-		lissajous(w)
+		var result = strings.Split(r.URL.RawQuery,"=")
+		if result[0] == "cycles" {
+			re := regexp.MustCompile("[0-9]+")
+			digit:=re.FindAllString(result[1], -1)
+			f,err := strconv.ParseFloat(digit[0], 64)
+			if err == nil {
+				if  f > 0 {
+					lissajous(w,f)
+				} else {
+					fmt.Fprintf(w, "f <=0: %v",r.URL.RawQuery)
+				}
+			} else {
+				fmt.Fprintf(w, "error: %v",r.URL.RawQuery)
+			}
+		} else {
+			fmt.Fprintf(w, "query wrong format: %v\nfull path: %v\nraw path: %v",r.URL.RawQuery, r.URL.Path, r.URL.RawPath)
+		}
 	}
 	http.HandleFunc("/", handler)
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
-func lissajous(out io.Writer) {
+
+func lissajous(out io.Writer, cycles float64) {
 	const (
-		cycles = 1 // number of complete x oscillator
-		revolutions
 		res     = 0.0001 // angular resolution
 		size    = 300    // image canvas covers [-size..+size]
 		nframes = 512    // number of animation frames
