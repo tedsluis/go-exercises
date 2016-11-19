@@ -17,7 +17,7 @@ var last = time.Now()
 func main() {
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/count", counter)
-	log.Fatal(http.ListenAndServe("192.168.1.42:8000", nil))
+	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
 
 // counter echoes the number of calls so far.
