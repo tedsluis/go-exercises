@@ -43,7 +43,7 @@ func main() {
 				if  f > 0 {
 					lissajous(w,f)
 				} else {
-					fmt.Fprintf(w, "f <=0: %v",r.URL.RawQuery)
+					fmt.Fprintf(w, "f <=0: %v\nresult[0]\n",r.URL.RawQuery)
 				}
 			} else {
 				fmt.Fprintf(w, "error: %v",r.URL.RawQuery)
