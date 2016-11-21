@@ -5,8 +5,8 @@ import (
 	"fmt"
 )
 
-type	Celsius float64
-type	Fahrenheit float64
+type Celsius float64
+type Fahrenheit float64
 
 const (
 	AbsoluteZeroC Celsius = -273.15
@@ -26,6 +26,13 @@ func main() {
 	BoilingF := CToF(BoilingC)
 	fmt.Printf("BoilingF-CToF(FreezingC) %g°F\n", BoilingF-CToF(FreezingC)) // "180" °F
 	fmt.Printf("FToC(BoilingF)-FreezingC %g°C\n", FToC(BoilingF)-FreezingC) // "100" °C
+
+	var c Celsius
+	var f Fahrenheit
+	fmt.Println("c == 0", c == 0)             // "true"
+	fmt.Println("f >= 0", f >= 0)             // "true"
+	fmt.Println("Fahrenheit(c) == f", Fahrenheit(c) == f) // "true"
+	fmt.Println("c == Celsius(f)"   , c == Celsius(f))    // "true"!
 }
 
 func fToC(f float64) float64 {
