@@ -42,9 +42,18 @@ func main() {
 	fmt.Printf("g ct=%g\n", ct)             // "100"; does not call String
 	fmt.Println("float64(ct)=",float64(ct)) // "100"; does not call String
 
+	ft := CToF(100.0)
+	fmt.Println("ft.String()=",ft.String()) // "212°C"
+	fmt.Printf("v ft=%v\n", ft)             // "212°C"; no need to call String explicitly
+	fmt.Printf("s ft=%s\n", ft)             // "212°C"
+	fmt.Println("ft=",ft)                   // "212°C"
+	fmt.Printf("g ft=%g\n", ft)             // "212"; does not call String
+	fmt.Println("float64(ft)=",float64(ft)) // "212"; does not call String
+
 }
 
-func (ct Celsius) String() string { return fmt.Sprintf("%g°C", ct) }
+func (ct Celsius)    String() string { return fmt.Sprintf("%g°C", ct) }
+func (ft Fahrenheit) String() string { return fmt.Sprintf("%g°F", ft) }
 
 func fToC(f float64) float64 {
 	return (f - 32) * 5 / 9
