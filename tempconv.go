@@ -4,7 +4,7 @@ import (
     "fmt"
     "os"
     "strconv"
-    "tempconv/tempconv"
+    "tempconv"
 )
 func main() {
     for _, arg := range os.Args[1:] {
