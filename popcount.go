@@ -17,6 +17,7 @@ func main() {
 			os.Exit(1)
 		}
 		y := popcount.PopCount(x)
-		fmt.Println("x=", x, ", y=", y)
+		popcount.Display(x)
+		fmt.Println(" ,x=", x, ", y=", y) 
 	}
 }
