@@ -18,6 +18,6 @@ func main() {
 		}
 		y := popcount.PopCount(x)
 		popcount.Display(x)
-		fmt.Println(" ,x=", x, ", y=", y) 
+		fmt.Println(" ,x==", x, ", y==", y) 
 	}
 }
