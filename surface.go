@@ -37,7 +37,7 @@ func main() {
 			if z1 < z4 {
 				z1 = z4
 			}
-			z := int((math.Sin(z1*0.06)*8388352)+8388352)/4 + 30000
+			z := int((z1*8388352)+8388352)/4 + 30000
 			fmt.Printf("<polygon points='%g,%g %g,%g %g,%g %g,%g' fill='#%x'/>\n",
 				ax, ay, bx, by, cx, cy, dx, dy, z)
 		}
